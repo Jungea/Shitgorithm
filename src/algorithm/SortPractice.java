@@ -51,6 +51,68 @@ public class SortPractice {
         }
     }
 
+    // 삽입 정렬
+    public static void insertionSort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int key = arr[i], j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
+        }
+    }
+
+
+    // 퀵 정렬
+    public static void quickSort(int[] arr) {
+        quickSortRecursive(arr, 0, arr.length - 1);
+    }
+
+    private static void quickSortRecursive(int[] arr, int low, int high) {
+        if (low >= high) return;
+        int pivot = arr[(low + high) / 2];
+        int left = low, right = high;
+        while (left <= right) {
+            while (arr[left] < pivot) left++;
+            while (arr[right] > pivot) right--;
+            if (left <= right) swap(arr, left++, right--);
+        }
+        quickSortRecursive(arr, low, right);
+        quickSortRecursive(arr, left, high);
+    }
+
+    // 병합 정렬
+    public static void mergeSort(int[] arr) {
+        if (arr.length < 2) return;
+        int mid = arr.length / 2;
+        int[] left = Arrays.copyOfRange(arr, 0, mid);
+        int[] right = Arrays.copyOfRange(arr, mid, arr.length);
+        mergeSort(left);
+        mergeSort(right);
+        merge(arr, left, right);
+    }
+
+    private static void merge(int[] arr, int[] left, int[] right) {
+        int i = 0, j = 0, idx = 0;
+        while (i < left.length && j < right.length) {
+            arr[idx++] = (left[i] < right[j]) ? left[i++] : right[j++];
+        }
+        while (i < left.length) arr[idx++] = left[i++];
+        while (j < right.length) arr[idx++] = right[j++];
+    }
+
+    // 계수 정렬 (0 이상 정수 전용)
+    public static void countingSort(int[] arr) {
+        int max = Arrays.stream(arr).max().orElse(0);
+        int[] count = new int[max + 1];
+        for (int n : arr) count[n]++;
+        int idx = 0;
+        for (int i = 0; i < count.length; i++) {
+            while (count[i]-- > 0) arr[idx++] = i;
+        }
+    }
+
     private static void swap(int[] arr, int a, int b) {
         int tmp = arr[a];
         arr[a] = arr[b];
