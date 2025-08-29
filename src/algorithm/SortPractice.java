@@ -9,7 +9,7 @@ public class SortPractice {
 
         test("버블 정렬", original, SortPractice::bubbleSort);
         test("선택 정렬", original, SortPractice::selectionSort);
-//        test("삽입 정렬", original, SortPractice::insertionSort);
+        test("삽입 정렬", original, SortPractice::insertionSort);
 //        test("퀵 정렬", original, SortPractice::quickSort);
 //        test("병합 정렬", original, SortPractice::mergeSort);
 //        test("계수 정렬", original, SortPractice::countingSort); // 정수만 가능
