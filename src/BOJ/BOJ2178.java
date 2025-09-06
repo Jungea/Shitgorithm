@@ -56,4 +56,47 @@ public class BOJ2178 {
             pq.add(new int[]{x, y, d + 1});
         }
     }
+
+    private static int bfs(int[][] g, int startX, int startY, Map<String, Boolean> visited) {
+        int count = 1;
+
+        Queue<int[]> q = new ArrayDeque<>();
+
+        q.offer(new int[]{startX, startY});
+        visited.put(startX + "-" + startY, true);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+
+            // 같은 깊이 처리
+            for (int i = 0; i < size; i++) {
+                int[] key = q.poll();
+                int x = key[0];
+                int y = key[1];
+
+                if (x == g.length - 1 && y == g[0].length - 1) {
+                    return count;
+                }
+
+                // 인접 동서남북
+                int[][] dd = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+                for (int[] d : dd) {
+                    int dx =  x + d[0];
+                    int dy = y + d[1];
+
+                    if (dx >= 0 && dx <= g.length - 1
+                            && dy >= 0 && dy <= g[0].length - 1
+                            && g[dx][dy] == 1
+                            && !visited.containsKey(dx + "-" + dy)) {
+                        visited.put(dx + "-" + dy, true);
+                        q.offer(new int[]{dx, dy});
+                    }
+                }
+            }
+
+            count++;
+        }
+
+        return -1;
+    }
 }
