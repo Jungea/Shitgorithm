@@ -1,5 +1,8 @@
 package LTC;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 public class LTC200 {
 
     public int numIslands(char[][] grid) {
@@ -32,5 +35,29 @@ public class LTC200 {
         dfs(grid, i, j - 1);
         dfs(grid, i, j + 1);
 
+    }
+
+    public void bfs(char[][] grid, int startX, int startY) {
+        Queue<int[]> q = new ArrayDeque<>();
+
+        q.offer(new int[]{startX, startY});
+        grid[startX][startY] = '0';
+
+        while (!q.isEmpty()) {
+            int[] value = q.poll();
+            int x = value[0];
+            int y = value[1];
+
+            final int[][] DIRECTION = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            for (int[] d : DIRECTION) {
+                int dx = x + d[0];
+                int dy = y + d[1];
+
+                if (dx >= 0 && dx < grid.length && dy >= 0 && dy < grid[0].length && grid[dx][dy] == '1') {
+                    grid[dx][dy] = '0';
+                    q.offer(new int[]{dx, dy});
+                }
+            }
+        }
     }
 }
