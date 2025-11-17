@@ -127,4 +127,88 @@ public class BOJ10828 {
             }
         }
     }
+
+    static class MyDequeStack {
+
+        private final Deque<Integer> stack = new ArrayDeque<>();
+
+        /**
+         * 정수 X를 스택에 넣는 연산이다.
+         * @param x
+         */
+        public void push(int x) {
+            stack.push(x);
+        }
+
+        public int pop() {
+            if (empty() == 1) {
+                return -1;
+            }
+
+            return stack.pop();
+        }
+
+        public int size() {
+            return stack.size();
+        }
+
+        public int empty() {
+            return stack.isEmpty() ? 1 : 0;
+        }
+
+        public int top() {
+            if (empty() == 1) {
+                return -1;
+            }
+
+            return stack.peek();
+        }
+    }
+
+    static class MyArrayStack {
+
+        private final int[] stack;
+        private int top = -1;
+
+
+        public MyArrayStack(int n) {
+            stack = new int[n];
+        }
+
+        /**
+         * 정수 X를 스택에 넣는 연산이다.
+         * @param x
+         */
+        public void push(int x) {
+            if (top + 1 >= stack.length) {
+                return; // 또는 예외 처리
+            }
+
+            stack[++top] = x;
+        }
+
+        public int pop() {
+            if (empty() == 1) {
+                return -1;
+            }
+
+            return stack[top--];
+        }
+
+        public int size() {
+            return top + 1;
+        }
+
+        public int empty() {
+            return top == -1 ? 1 : 0;
+        }
+
+        public int top() {
+            if (empty() == 1) {
+                return -1;
+            }
+
+            return stack[top];
+        }
+    }
 }
