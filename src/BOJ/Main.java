@@ -12,7 +12,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
-        MyDequeQueue myStack = new MyDequeQueue();
+//        MyDequeQueue myStack = new MyDequeQueue();
+        MyArrayQueue myStack = new MyArrayQueue(N);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
@@ -50,10 +51,6 @@ public class Main {
 
         private final Deque<Integer> queue = new ArrayDeque<>();
 
-        /**
-         * 정수 X를 스택에 넣는 연산이다.
-         * @param x
-         */
         public void push(int x) {
             queue.offerLast(x);
         }
@@ -91,26 +88,24 @@ public class Main {
         }
     }
 
-    static class MyArrayStack {
+    static class MyArrayQueue {
 
-        private final int[] stack;
-        private int top = -1;
+        private final int[] queue;
+        private final int capacity;
 
+        private int size;
+        private int front = -1;
+        private int roar = 0;
 
-        public MyArrayStack(int n) {
-            stack = new int[n];
+        public MyArrayQueue(int n) {
+            this.queue = new int[n];
+            this.capacity = n;
         }
 
-        /**
-         * 정수 X를 스택에 넣는 연산이다.
-         * @param x
-         */
         public void push(int x) {
-            if (top + 1 >= stack.length) {
-                return; // 또는 예외 처리
-            }
-
-            stack[++top] = x;
+            front = (front + 1 + capacity) % capacity;
+            queue[front] = x;
+            size++;
         }
 
         public int pop() {
@@ -118,23 +113,36 @@ public class Main {
                 return -1;
             }
 
-            return stack[top--];
+            int x = queue[roar];
+            roar = (roar + 1 + capacity) % capacity;
+            size--;
+
+            return x;
         }
 
         public int size() {
-            return top + 1;
+            return this.size;
         }
 
         public int empty() {
-            return top == -1 ? 1 : 0;
+            return this.size == 0 ? 1 : 0;
         }
 
-        public int top() {
+        public int front() {
             if (empty() == 1) {
                 return -1;
             }
 
-            return stack[top];
+            return queue[front];
+        }
+
+        public int back() {
+            if (empty() == 1) {
+                return -1;
+            }
+
+            return queue[roar];
         }
     }
+
 }
