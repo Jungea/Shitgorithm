@@ -12,8 +12,8 @@ public class BOJ10845 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
-//        MyDequeQueue myStack = new MyDequeQueue();
-        MyArrayQueue myStack = new MyArrayQueue(N);
+//        MyDequeQueue myQueue = new MyDequeQueue();
+        MyArrayQueue myQueue = new MyArrayQueue(N);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
@@ -21,22 +21,22 @@ public class BOJ10845 {
 
             switch (tmp[0]) {
                 case "push":
-                    myStack.push(Integer.parseInt(tmp[1]));
+                    myQueue.push(Integer.parseInt(tmp[1]));
                     break;
                 case "pop":
-                    sb.append(myStack.pop()).append("\n");
+                    sb.append(myQueue.pop()).append("\n");
                     break;
                 case "size":
-                    sb.append(myStack.size()).append("\n");
+                    sb.append(myQueue.size()).append("\n");
                     break;
                 case "empty":
-                    sb.append(myStack.empty()).append("\n");
+                    sb.append(myQueue.empty()).append("\n");
                     break;
                 case "front":
-                    sb.append(myStack.front()).append("\n");
+                    sb.append(myQueue.front()).append("\n");
                     break;
                 case "back":
-                    sb.append(myStack.back()).append("\n");
+                    sb.append(myQueue.back()).append("\n");
                     break;
             }
 
@@ -101,7 +101,7 @@ public class BOJ10845 {
 
         private int size;
         private int front = 0;
-        private int roar = -1;
+        private int rear = -1;
 
         public MyArrayQueue(int n) {
             this.queue = new int[n];
@@ -109,8 +109,8 @@ public class BOJ10845 {
         }
 
         public void push(int x) {
-            roar = (roar + 1 + capacity) % capacity;
-            queue[roar] = x;
+            rear = (rear + 1 + capacity) % capacity;
+            queue[rear] = x;
             size++;
         }
 
@@ -147,7 +147,7 @@ public class BOJ10845 {
                 return -1;
             }
 
-            return queue[roar];
+            return queue[rear];
         }
     }
 }
