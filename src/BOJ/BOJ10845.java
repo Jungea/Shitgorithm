@@ -13,7 +13,7 @@ public class BOJ10845 {
 
         int N = Integer.parseInt(br.readLine());
 //        MyDequeQueue myStack = new MyDequeQueue();
-        Main.MyArrayQueue myStack = new Main.MyArrayQueue(N);
+        MyArrayQueue myStack = new MyArrayQueue(N);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
