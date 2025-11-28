@@ -12,9 +12,24 @@ public class BOJ11399 {
 
         int n = Integer.parseInt(br.readLine());
         String s = br.readLine();
-        int sum = solution1(s, n);
+        int sum = solution(s, n);
 
         System.out.println(sum);
+    }
+
+    private static int solution(String s, int n) {
+        String[] splitString = s.split(" ");
+        int[] arr = Arrays.stream(splitString).mapToInt(Integer::parseInt).toArray();
+
+        Arrays.sort(arr);
+
+        int sum = 0;
+        int add = 0;
+        for (int i = 0; i < n; i++) {
+            add += arr[i];
+            sum += add;
+        }
+        return sum;
     }
 
     private static int solution1(String s, int n) {
