@@ -1,6 +1,10 @@
 package PGS;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class PGS42862 {
+
     public static void main(String[] args) {
         System.out.println(solution(5, new int[]{2, 4}, new int[]{1, 3, 5}));
     }
@@ -36,5 +40,38 @@ public class PGS42862 {
         }
 
         return answer - 2;
+    }
+
+    public int solution2(int n, int[] lost, int[] reserve) {
+
+        Set<Integer> plus = new TreeSet<>();
+        for (int i : reserve) {
+            plus.add(i);
+        }
+
+        Set<Integer> minus = new TreeSet<>();
+        for (int i : lost) {
+
+            // 여분이 있는 학생 중 도난당한 학생 제외
+            if (plus.contains(i)) {
+                plus.remove(i);
+
+            } else {
+                minus.add(i);
+            }
+        }
+
+        int finLost = 0;  // 최종 체육복 없는 사람수
+        for (Integer m : minus) {
+            if (m > 1 && plus.contains(m - 1)) {
+                plus.remove(m - 1);
+            } else if (m < n && plus.contains(m + 1)) {
+                plus.remove(m + 1);
+            } else {
+                finLost++;
+            }
+        }
+
+        return n - finLost;
     }
 }
